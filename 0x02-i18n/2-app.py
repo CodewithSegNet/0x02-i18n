@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-""" get_locale function use to determine the \
-        best match """
+""" get_locale function use to determine the best match """
 from flask import Flask, render_template
 from flask_babel import Babel
 
@@ -17,20 +16,18 @@ app.config.from_object(Config)
 app.url_map.strict_slashes = False
 babel = Babel(app)
 
-""" route for home/index page """
-
 
 @app.route('/')
 def index():
+    """ the home/index page.
+    """
     return render_template('2-index.html')
 
 
-""" decorator for get locale """
-
-
 @babel.localeselector
+""" decorator for get locale """
 def get_locale() -> str:
     return request.accept_languages.best_match(app.config['LANGUAGE'])
 
-
-app.run(host="0.0.0.0", port=5000)
+if __name__ == '__main__':
+    app.run(host="0.0.0.0", port=5000)
